@@ -158,6 +158,26 @@ Write a function that fits a linear regression model and saves the
 result to the global environment using the `assign()` function. The name
 of the output must be passed as a symbol using lazy evaluation.
 
+```{r}
+myreg <- function(..., outputname) {
+
+    # Fit the model
+    fit <- lm(...)
+
+    # Save the model
+    assign(
+        deparse(substitute(outputname)),
+        fit, envir = .GlobalEnv
+        )
+
+    invisible(NULL)
+
+}
+
+myreg(mpg ~ wt, data = mtcars, outputname = mymodel)
+mymodel
+```
+
 Knit the document, commit your changes, and push them to GitHub.
 
 ## Part 3: Data.table
