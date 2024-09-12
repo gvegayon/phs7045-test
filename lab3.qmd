@@ -137,6 +137,19 @@ two arguments (`a` and `b`) that only uses one of them as an integer,
 and then call the function passing the following arguments
 `(1, this_stuff)`
 
+
+```{r}
+# ...
+fun <- function(a, b) {
+    as.integer(a)
+    if (missing(b))
+        print("b is missing")
+}
+fun(1, my_stuff) # Lazy eval
+
+fun(1) # lazy eval strikes again!
+```
+
 Knit the document, commit your changes, and push them to GitHub.
 
 ### Question 3: **Putting all together**

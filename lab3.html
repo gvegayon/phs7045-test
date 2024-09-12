@@ -3199,7 +3199,7 @@ vertical-align: -.125em;
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun2</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> list()
-&lt;environment: 0x11cef6e38&gt;
+&lt;environment: 0x11c50f970&gt;
 list()</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span></span>
@@ -3212,21 +3212,21 @@ list()</code></pre>
  $ : num [1:2] 1 2
 &lt;environment: R_GlobalEnv&gt;
 [[1]]
-[1] &quot;0x11c92ec70&quot;
+[1] &quot;0x13210c880&quot;
 
 [[2]]
-[1] &quot;0x11c92ec00&quot;
+[1] &quot;0x13210c810&quot;
 
 [[3]]
-[1] &quot;0x12c75e188&quot;</code></pre>
+[1] &quot;0x11e5b3588&quot;</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">address</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;0x11c92ec70&quot;</code></pre>
+<pre><code>[1] &quot;0x13210c880&quot;</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">address</span>(b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;0x11c92ec00&quot;</code></pre>
+<pre><code>[1] &quot;0x13210c810&quot;</code></pre>
 </div>
 </div>
 <p>Knit the document, commit your changes, and push them to GitHub.</p>
@@ -3234,6 +3234,20 @@ list()</code></pre>
 <section id="question-2-lazy-evaluation" class="level3">
 <h3 class="anchored" data-anchor-id="question-2-lazy-evaluation">Question 2: <strong>Lazy evaluation</strong></h3>
 <p>A concept we did not review was lazy evaluation. Write a function with two arguments (<code>a</code> and <code>b</code>) that only uses one of them as an integer, and then call the function passing the following arguments <code>(1, this_stuff)</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fun <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.integer</span>(a)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">missing</span>(b))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">print</span>(<span class="st">&quot;b is missing&quot;</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">fun</span>(<span class="dv">1</span>, my_stuff) <span class="co"># Lazy eval</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">fun</span>(<span class="dv">1</span>) <span class="co"># lazy eval strikes again!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] &quot;b is missing&quot;</code></pre>
+</div>
+</div>
 <p>Knit the document, commit your changes, and push them to GitHub.</p>
 </section>
 <section id="question-3-putting-all-together" class="level3">
@@ -3251,24 +3265,24 @@ list()</code></pre>
 <li><p>Load the met data from https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz, and the station data. For the latter, you can use the code we used during the lecture to pre-process the stations’ data:</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the data</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>stations <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">&quot;ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv&quot;</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>stations[, USAF <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(USAF)]</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Dealing with NAs and 999999</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>stations[, USAF   <span class="sc">:</span><span class="er">=</span> <span class="fu">fifelse</span>(USAF <span class="sc">==</span> <span class="dv">999999</span>, <span class="cn">NA_integer_</span>, USAF)]</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>stations[, CTRY   <span class="sc">:</span><span class="er">=</span> <span class="fu">fifelse</span>(CTRY <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">NA_character_</span>, CTRY)]</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>stations[, STATE  <span class="sc">:</span><span class="er">=</span> <span class="fu">fifelse</span>(STATE <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">NA_character_</span>, STATE)]</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecting the three relevant columns, and keeping unique records</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>stations <span class="ot">&lt;-</span> <span class="fu">unique</span>(stations[, <span class="fu">list</span>(USAF, CTRY, STATE)])</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Dropping NAs</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>stations <span class="ot">&lt;-</span> stations[<span class="sc">!</span><span class="fu">is.na</span>(USAF)]</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Removing duplicates</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>stations[, n <span class="sc">:</span><span class="er">=</span> <span class="dv">1</span><span class="sc">:</span>.N, by <span class="ot">=</span> .(USAF)]</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>stations <span class="ot">&lt;-</span> stations[n <span class="sc">==</span> <span class="dv">1</span>,][, n <span class="sc">:</span><span class="er">=</span> <span class="cn">NULL</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the data</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>stations <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">&quot;ftp://ftp.ncdc.noaa.gov/pub/data/noaa/isd-history.csv&quot;</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>stations[, USAF <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(USAF)]</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Dealing with NAs and 999999</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>stations[, USAF   <span class="sc">:</span><span class="er">=</span> <span class="fu">fifelse</span>(USAF <span class="sc">==</span> <span class="dv">999999</span>, <span class="cn">NA_integer_</span>, USAF)]</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>stations[, CTRY   <span class="sc">:</span><span class="er">=</span> <span class="fu">fifelse</span>(CTRY <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">NA_character_</span>, CTRY)]</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>stations[, STATE  <span class="sc">:</span><span class="er">=</span> <span class="fu">fifelse</span>(STATE <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">NA_character_</span>, STATE)]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecting the three relevant columns, and keeping unique records</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>stations <span class="ot">&lt;-</span> <span class="fu">unique</span>(stations[, <span class="fu">list</span>(USAF, CTRY, STATE)])</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Dropping NAs</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>stations <span class="ot">&lt;-</span> stations[<span class="sc">!</span><span class="fu">is.na</span>(USAF)]</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Removing duplicates</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>stations[, n <span class="sc">:</span><span class="er">=</span> <span class="dv">1</span><span class="sc">:</span>.N, by <span class="ot">=</span> .(USAF)]</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>stations <span class="ot">&lt;-</span> stations[n <span class="sc">==</span> <span class="dv">1</span>,][, n <span class="sc">:</span><span class="er">=</span> <span class="cn">NULL</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="3" type="1">
 <li>Merge the data as we did during the lecture.</li>
@@ -3308,7 +3322,7 @@ list()</code></pre>
 </ul>
 <p>All by the levels described before.</p>
 <p>Knit the document, commit your changes, and push them to GitHub. If you’d like, you can take this time to include the link of <a href="https://github.com/UofUEpiBio/PHS7045-advanced-programming/issues/5">the issue of the week</a> so that you let us know when you are done, e.g.,</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-a</span> <span class="at">-m</span> <span class="st">&quot;Finalizing lab 3 https://github.com/UofUEpiBio/PHS7045-advanced-programming/issues/5&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-a</span> <span class="at">-m</span> <span class="st">&quot;Finalizing lab 3 https://github.com/UofUEpiBio/PHS7045-advanced-programming/issues/5&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 
