@@ -19,7 +19,23 @@ public:
 
 
 inline int Binom::factorial(int n) const {
-  return n;
+
+  if (n <= 1)
+    return 1;
+
+  return this->factorial(n - 1) * n;
+
+}
+
+inline double Binom::choose(int a, int b) const {
+
+  // double a_dbl = (double) a;
+  // double b_dbl = static_cast<double>(b);
+
+  return this->factorial(a)/(
+      factorial(a - b) * factorial(b)
+  );
+
 }
 
 #endif
