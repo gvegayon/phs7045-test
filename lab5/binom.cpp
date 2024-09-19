@@ -16,6 +16,11 @@ int main() {
 
   }
 
+  std::cout << "Q3 dbinom" << std::endl;
+  for (int i = 0; i < 11; i++) {
+    std::cout << b.dbinom(i) << std::endl;
+  }
+
   return 0;
 
 }

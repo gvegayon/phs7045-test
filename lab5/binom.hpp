@@ -10,31 +10,40 @@ private:
   double p;
 
 public:
-  Binom(int n, double p) : n(n), p(p) {};
-  int factorial(int n) const;
+  // Binom(int n_, double p_) : n(n_), p(p_) {};
+  Binom(int n_, double p_) {
+    n = n_;
+    p = p_;
+  };
+  int factorial(int k) const;
   double choose(int a, int b) const;
   double dbinom(int k) const;
   void print(int k) const;
 };
 
 
-inline int Binom::factorial(int n) const {
+inline int Binom::factorial(int k) const {
 
-  if (n <= 1)
+  if (k <= 1)
     return 1;
 
-  return this->factorial(n - 1) * n;
+  return this->factorial(k - 1) * k;
 
 }
 
 inline double Binom::choose(int a, int b) const {
 
-  // double a_dbl = (double) a;
-  // double b_dbl = static_cast<double>(b);
-
-  return this->factorial(a)/(
-      factorial(a - b) * factorial(b)
+  return static_cast<double>(this->factorial(a))/(
+      static_cast<double>(factorial(a - b)) *
+      static_cast<double>(factorial(b))
   );
+
+}
+
+inline double Binom::dbinom(int k) const {
+
+  return choose(n, k) *
+    std::pow(p, k) * std::pow(1 - p, n - k);
 
 }
 
