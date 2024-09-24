@@ -15,13 +15,25 @@ NumericVector add_vectors(NumericVector a, NumericVector b) {
 }
 
 // [[Rcpp::export]]
-NumericVector add_vectors2(NumericVector a, NumericVector b) {
+Rcpp::NumericVector add_vectors2(
+    Rcpp::NumericVector & a,
+    const Rcpp::NumericVector & b
+) {
+
+  a = a + 1;
+
+  if (a.size() != b.size())
+    Rcpp::stop("Adding two vectors of different size!");
+
   return a + b;
 }
 
 /*** R
 add_vectors(1:5, 1:5)
-add_vectors2(1:5, 1:5)
+
+a <- 1:5
+add_vectors2(a, 1:5)
+a
 */
 
 
